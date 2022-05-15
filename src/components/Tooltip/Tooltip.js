@@ -1,28 +1,63 @@
-import React, { useEffect } from "react";
-const ToolTip = ({ children, title, placement, color , ...rest }) => {
-  const RelativeComponent = (_props) => {
-    // ? Function này return về child props truyền vào Tooltip component
-    return children;
+import { Input } from "antd";
+import React, { useRef, useEffect } from "react";
+// ? Zustance store
+import useTriggerStore from "../../store/useTriggerStore";
+
+const Tooltip = ({ children, placement, title, color, trigger, ...rest }) => {
+  const childComponentRef = useRef(null);
+  const _trigger = useTriggerStore((state) => state.trigger);
+  const _setTriggerState = useTriggerStore((state) => state.handleTrigger);
+
+  useEffect(() => {
+    const prompTextE = document.querySelector(".promp__text");
+    prompTextE.style.setProperty("--color", color);
+    switch (trigger) {
+      case "hover": {
+        childComponentRef.current.addEventListener("mouseenter", (e) => {
+          console.log("hover");
+          prompTextE.classList.add("active");
+        });
+        childComponentRef.current.addEventListener("mouseleave", (e) => {
+          prompTextE.classList.remove("active");
+        });
+        break;
+      }
+      case "click": {
+        childComponentRef.current.addEventListener("click", (e) => {
+          console.log("click");
+          prompTextE.classList.toggle("active");
+        });
+        break;
+      }
+      case "focus": {
+        const InputE = childComponentRef.current.childNodes[0];
+        console.log(InputE);
+        InputE.addEventListener("focus", (e) => {
+          console.log("focus");
+          prompTextE.classList.add("active");
+        });
+        InputE.addEventListener("blur", (e) => {
+          prompTextE.classList.remove("active");
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    _setTriggerState("updating...");
+  }, [_trigger]);
+  const ChildComponent = (props) => {
+    return <div ref={childComponentRef}>{children}</div>;
   };
-  const trunc = (str, limitNum) => {
-    // ? Hàm cắt chuỗi thành chuỗi ngắn hơn
-    return str.length > limitNum ? str.slice(0, limitNum) + "..." : str;
-  };
-  useEffect ( () => {
-    const prompTextE = document.querySelector('.promp__text')
-    // ? Set thuộc tính color vào prop của thẻ để nhận được prop bên scss thông qua biến
-    prompTextE.style.setProperty('--color-code--',color)
-  } , [])
+  const PrompText = <span className={`promp__text ${placement}`}>{title}</span>;
   return (
     <>
-      <style></style>
-      <div className={`relative__wrapper ${placement}`}>
-        <RelativeComponent className="relative__component" {...rest} />
-        <span className="promp__text">
-          {trunc(title, 15)}
-        </span>
+      <div className={`tooltip__wrapper `}>
+        <ChildComponent />
+        {PrompText}
       </div>
     </>
   );
 };
-export default ToolTip;
+export default Tooltip;

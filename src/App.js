@@ -1,28 +1,23 @@
-import useCounterStore from "~/store/useCounterStore";
-// import ToolTip from "./components/Tooltip/Tooltip";
-function App() {
-  const { counter, increase } = useCounterStore((state) => state);
+// ? Component
+import Tooltip from "./components/Tooltip/Tooltip";
 
+const buttonStyle = {
+  padding: "8px 16px",
+  borderRadius: "12px",
+  color: "#fff",
+  backgroundColor: "#333",
+};
+function App() {
   return (
-    <div className={'tw-bg-red-500'}>
-      <div>{counter}</div>
-      <button onClick={increase} >increase</button>
-    </div>
-    // <ToolTip placement="right" title='promp text' color='#333'>
-    //   <button
-    //     style={{
-    //       backgroundColor: "#fff",
-    //       padding: "8px 16px",
-    //       color: "#000",
-    //       fontWeight: '600',
-    //       borderRadius: "12px",
-    //       border: '1px solid red',
-    //     }}
-    //   >
-    //     Hover me
-    //   </button>
-    // </ToolTip>
+    <Tooltip
+      placement="right"
+      title="promp text"
+      color="#20b6d8"
+      trigger="click"
+    >
+      <button style={buttonStyle}>Hover me</button>
+      {/* <input type="text" name="" id="" placeholder="Hello" /> */}
+    </Tooltip>
   );
 }
-
 export default App;
