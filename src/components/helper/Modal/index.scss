@@ -1,0 +1,36 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  // pointer-events: none;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.disableModal {
+  display: none;
+}
+
+.notion-modal-content {
+  position: fixed;
+  padding: 10px;
+  background-color: white;
+  z-index: var(--notion-zIndex-modal);
+  left: 50%;
+  transform: translateX(-50%);
+
+  .notion-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .notion-modal-footer {
+    float: right;
+  }
+}
+
+.notion-modal-center {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

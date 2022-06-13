@@ -1,0 +1,47 @@
+.d-tree-container {
+  list-style: none;
+  padding: 0;
+}
+
+.d-tree-node {
+  padding-left: 0.75rem;
+
+  .d-tree-node-children {
+    &:hover {
+      background-color: #dad9d7;
+    }
+
+    .holoziza {
+      display: none;
+    }
+
+    &:hover .holoziza {
+      display: flex;
+    }
+  }
+
+  .d-tree-toggler {
+    padding: 0 0.3rem;
+    margin-right: 0.1rem;
+    &:hover {
+      background-color: #989792;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+
+  .d-tree-icon {
+    padding: 0.1rem 0.3rem;
+    margin-right: 0.1rem;
+
+    &:hover {
+      background-color: #989792;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+}
+
+.active {
+  transform: rotate(90deg);
+}
