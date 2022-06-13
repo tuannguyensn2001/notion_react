@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --notion-zIndex-overlay: 1300;
+  --notion-zIndex-modal: 1400;
+  --notion-zIndex-base: 0;
+}
